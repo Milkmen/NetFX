@@ -112,8 +112,6 @@ private:
     std::vector<GumboNode*> scripts;
     std::vector<GumboNode*> stylesheets;
 
-    void extract_text(GumboNode* node);
-
     void convertGumboToLCRS(LCRS_Tree<NFX_DrawObj_t>& tree, GumboNode* gumboNode, LCRS_Node<NFX_DrawObj_t>* parent = nullptr);
 public:
     GumboOutput* output;

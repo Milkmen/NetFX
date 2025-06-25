@@ -21,8 +21,12 @@ NFX_DrawObj_t;
 class NFX_Renderer
 {
 private:
-	void render_simple_text(const char* text, int x, int y);
-	void renderHtml(LCRS_Node<NFX_DrawObj_t>* node, float x, float y, float w, float h);
+	void renderSimpleText(const char* text, int x, int y);
+	void renderWrappedText(const std::string& text, float& x, float& y, float maxWidth);
+	TTF_Font* getFontForTag(const std::string& tag);
+
+	void renderHtml(LCRS_Node<NFX_DrawObj_t>* node, float& x, float& y, float w, float maxWidth);
+
 public:
 	std::vector<NFX_DrawObj_t> rendered;
 	LCRS_Tree<NFX_DrawObj_t> tree;

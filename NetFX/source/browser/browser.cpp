@@ -69,54 +69,6 @@ NFX_Browser::~NFX_Browser()
     delete this->renderer;
 }
 
-void NFX_Browser::extract_text(GumboNode* node)
-{
-    if (node->type == GUMBO_NODE_TEXT) 
-    {
-        std::string text = node->v.text.text;
-        // Skip empty/whitespace-only text
-        if (!text.empty() && text.find_first_not_of(" \t\r\n") != std::string::npos) 
-        {
-            // Trim whitespace
-            size_t start = text.find_first_not_of(" \t\r\n");
-            size_t end = text.find_last_not_of(" \t\r\n");
-            text = text.substr(start, end - start + 1);
-
-            // Check the parent element's tag to determine where this text belongs
-            if (node->parent && node->parent->type == GUMBO_NODE_ELEMENT) 
-            {
-                switch (node->parent->v.element.tag) 
-                {
-                case GUMBO_TAG_SCRIPT:
-                    this->scripts.push_back(node);
-                    break;
-                case GUMBO_TAG_STYLE:
-                    this->stylesheets.push_back(node);
-                    break;
-                case GUMBO_TAG_TITLE:
-                    SDL_SetWindowTitle(this->renderer->window, ("WebFX - " + text).c_str());
-                    break;
-                default:
-                    this->renderer->rendered.push_back(NFX_DrawObj_t{ text });
-                }
-            }
-            else 
-            {
-                // Text node without element parent - treat as regular content
-                this->renderer->rendered.push_back(NFX_DrawObj_t{ text });
-            }
-        }
-    }
-    else if (node->type == GUMBO_NODE_ELEMENT) 
-    {
-        GumboVector* children = &node->v.element.children;
-        for (unsigned int i = 0; i < children->length; ++i) 
-        {
-            this->extract_text(static_cast<GumboNode*>(children->data[i]));
-        }
-    }
-}
-
 void NFX_Browser::load(NFX_Url& url)
 {
     httplib::SSLClient cli(url.hostname);
