@@ -30,11 +30,9 @@ NFX_Renderer::~NFX_Renderer()
     SDL_DestroyRenderer(this->renderer);
 }
 
-void NFX_Renderer::renderSimpleText(const char* text, int x, int y)
+void NFX_Renderer::renderSimpleText(TTF_Font* font, const char* text, int x, int y)
 {
-    if (!this->renderer || !text) return;
-    TTF_Font* font = this->fonts["default"];
-    if (!font) return;
+    if (!this->renderer || !text || !font) return;
     SDL_Color black = { 0, 0, 0, 255 };
     SDL_Surface* surface = TTF_RenderText_Solid(font, text, black);
     if (!surface) return;
@@ -48,10 +46,9 @@ void NFX_Renderer::renderSimpleText(const char* text, int x, int y)
     SDL_FreeSurface(surface);
 }
 
-void NFX_Renderer::renderWrappedText(const std::string& text, float& x, float& y, float maxWidth) {
-    TTF_Font* font = fonts["default"];
+void NFX_Renderer::renderWrappedText(TTF_Font* font, const std::string& text, float& x, float& y, float maxWidth) 
+{
     if (!font) return;
-
     std::istringstream words(text);
     std::string word;
 
@@ -65,7 +62,7 @@ void NFX_Renderer::renderWrappedText(const std::string& text, float& x, float& y
             y += wordH + 2; // Line height with small gap
         }
 
-        renderSimpleText(word.c_str(), x, y);
+        renderSimpleText(font, word.c_str(), x, y);
         x += wordW + 5; // Add space between words
     }
 }
@@ -92,62 +89,96 @@ void NFX_Renderer::renderHtml(LCRS_Node<NFX_DrawObj_t>* node, float& x, float& y
 
     const NFX_DrawObj_t& el = node->value;
 
-    if (el.tag == "#text") {
-        if (!el.inner.empty()) {
-            this->renderSimpleText(el.inner.c_str(), x, y);
-            // Update position based on text size
+    if (el.tag == "#text") 
+    {
+        if (!el.inner.empty()) 
+        {
+            // Use appropriate font for parent element
             TTF_Font* font = fonts["default"];
-            if (font) {
-                int textW, textH;
-                TTF_SizeText(font, el.inner.c_str(), &textW, &textH);
-                x += textW;
-                if (x > maxWidth) { // Line wrap
-                    x = 0;
-                    y += textH;
+            int textW, textH;
+
+            if (node->parent)
+            {
+                font = this->getFontForTag(node->parent->value.tag);
+            }
+
+            if (TTF_SizeText(font, el.inner.c_str(), &textW, &textH) == 0) 
+            {
+                // Check if we need to wrap to next line
+                if (x + textW > maxWidth && x > 10) 
+                {
+                    x = 10; // Reset to left margin
+                    y += textH + 2; // Move to next line
                 }
+
+                this->renderSimpleText(font, el.inner.c_str(), (int)x, (int)y);
+                x += textW + 5; // Add some space after text
             }
         }
     }
-    else {
-        // Handle block elements
-        if (isBlockElement(el.tag)) {
-            x = 0; // Start new line
-            y += 20; // Add vertical spacing
+    else 
+    {
+        // Handle different HTML elements
+        bool isBlock = isBlockElement(el.tag);
+
+        if (isBlock) 
+        {
+            if (x > 10) 
+            {
+                x = 10;
+                y += 5; // Add some spacing
+            }
         }
 
-        // Add margins for specific elements
-        float marginLeft = 0, marginTop = 0;
+        // Add element-specific spacing
         if (el.tag == "h1" || el.tag == "h2" || el.tag == "h3") {
-            marginTop = 10;
+            y += 15; // Extra spacing for headers
         }
         else if (el.tag == "p") {
-            marginTop = 5;
+            y += 10; // Paragraph spacing
+        }
+        else if (el.tag == "br") {
+            // Line break
+            x = 10;
+            y += 20;
+            return; // Don't process children for <br>
         }
 
-        y += marginTop;
-
-        // Render children
+        // Render all children
         LCRS_Node<NFX_DrawObj_t>* child = node->child;
         while (child) {
             renderHtml(child, x, y, w, maxWidth);
             child = child->sibling;
         }
 
-        // Handle block closing
-        if (isBlockElement(el.tag)) {
-            x = 0;
-            y += 5; // Add spacing after block
+        // Add spacing after block elements
+        if (isBlock) {
+            x = 10;
+            y += 5;
         }
     }
 }
 
 void NFX_Renderer::render()
 {
+    extern bool searchBarActive;
+    extern std::string searchText;
+
     if (!this->window || !this->renderer) return;
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
     SDL_RenderClear(this->renderer);
 
-    this->renderHtml(this->tree.getRoot(), 0, 0, 800, 600);
+    // Fix: Use proper parameters with reference variables
+    float x = 10.0f;  // Start with some margin
+    float y = 10.0f;  // Start with some margin
+    float w = 780.0f; // Width minus margins
+    float maxWidth = 780.0f; // Max width for text wrapping
+
+    this->renderHtml(this->tree.getRoot(), x, y, w, maxWidth);
+
+    if (searchBarActive) {
+        this->renderSimpleText(this->fonts["h1"], searchText.c_str(), 16, 16);
+    }
 
     SDL_RenderPresent(this->renderer);
 }

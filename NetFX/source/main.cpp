@@ -3,6 +3,11 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#define MAX_INPUT 256
+
+bool searchBarActive = false;
+std::string searchText = "";
+
 int main(int argc, char* argv[]) 
 {
     // Initialize SDL
@@ -29,7 +34,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::string urlText = "https://milkmen.github.io/2-stroke-bhp.html";
+    std::string urlText = "https://example.com/";
     NFX_Url url = NFX_Url(urlText);
     NFX_Browser* browser = new NFX_Browser(window);
     browser->load(url);
@@ -45,6 +50,45 @@ int main(int argc, char* argv[])
             if (e.type == SDL_QUIT) 
             {
                 quit = 1;
+            }
+
+            if (e.type == SDL_KEYDOWN) 
+            {
+                SDL_Keymod mod = SDL_GetModState();
+
+                // Toggle search bar with Alt key (pressed down)
+                if (e.key.keysym.sym == SDLK_LALT) 
+                {
+                    searchBarActive = !searchBarActive;
+
+                    if (searchBarActive) 
+                    {
+                        SDL_StartTextInput();
+                        searchText.clear();
+                    }
+                    else 
+                    {
+                        SDL_StopTextInput();
+                    }
+                }
+
+                if (searchBarActive && e.key.keysym.sym == SDLK_BACKSPACE) 
+                {
+                    searchText = searchText.substr(0, searchText.length() - 1);
+                }
+
+                if (searchBarActive && e.key.keysym.sym == SDLK_RETURN) 
+                {
+                    url = NFX_Url(searchText);
+                    browser->load(url);
+                    searchBarActive = false;
+                    SDL_StopTextInput();
+                }
+            }
+
+            // Capture text input
+            if (e.type == SDL_TEXTINPUT && searchBarActive) {
+                searchText.append(e.text.text);
             }
         }
 

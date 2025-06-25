@@ -2,7 +2,7 @@
 #include <httplib.hpp>
 #include <gumbo.h>
 
-void NFX_Browser::convertGumboToLCRS(LCRS_Tree<NFX_DrawObj_t>& tree, GumboNode* gumboNode, LCRS_Node<NFX_DrawObj_t>* parent) 
+void NFX_Browser::convertGumboToLCRS(LCRS_Tree<NFX_DrawObj_t>& tree, GumboNode* gumboNode, LCRS_Node<NFX_DrawObj_t>* parent)
 {
     if (gumboNode->type != GUMBO_NODE_ELEMENT && gumboNode->type != GUMBO_NODE_TEXT)
         return;
@@ -22,20 +22,38 @@ void NFX_Browser::convertGumboToLCRS(LCRS_Tree<NFX_DrawObj_t>& tree, GumboNode* 
         case GUMBO_TAG_TITLE:
         {
             GumboVector* children = &gumboNode->v.element.children;
-            std::string title = "WebFX - ";
-            title.append(((GumboNode*)children->data[0])->v.text.text);
-            SDL_SetWindowTitle(this->renderer->window, title.c_str());
+            if (children->length > 0) {
+                std::string title = "WebFX - ";
+                title.append(((GumboNode*)children->data[0])->v.text.text);
+                SDL_SetWindowTitle(this->renderer->window, title.c_str());
+            }
             return;
         }
-        default:
-            for (unsigned int i = 0; i < el.attributes.length; ++i) {
-                GumboAttribute* attr = static_cast<GumboAttribute*>(el.attributes.data[i]);
-                htmlNode.attributes[attr->name] = attr->value;
-            }
+        case GUMBO_TAG_A:
+            break;
+        }
+
+        for (unsigned int i = 0; i < el.attributes.length; ++i) {
+            GumboAttribute* attr = static_cast<GumboAttribute*>(el.attributes.data[i]);
+            htmlNode.attributes[attr->name] = attr->value;
         }
     }
     else if (gumboNode->type == GUMBO_NODE_TEXT) {
-        htmlNode.inner = gumboNode->v.text.text;
+        std::string text = gumboNode->v.text.text;
+
+        // Skip whitespace-only text nodes
+        if (text.find_first_not_of(" \t\r\n") == std::string::npos) {
+            return;
+        }
+
+        // Trim the text
+        size_t start = text.find_first_not_of(" \t\r\n");
+        size_t end = text.find_last_not_of(" \t\r\n");
+        if (start != std::string::npos && end != std::string::npos) {
+            text = text.substr(start, end - start + 1);
+        }
+
+        htmlNode.inner = text;
         htmlNode.tag = "#text"; // special marker for text node
     }
 
@@ -71,6 +89,10 @@ NFX_Browser::~NFX_Browser()
 
 void NFX_Browser::load(NFX_Url& url)
 {
+    if (this->output)
+        gumbo_destroy_output(&kGumboDefaultOptions, output);
+    this->renderer->tree.clear();
+
     httplib::SSLClient cli(url.hostname);
     cli.set_connection_timeout(10, 0);
     cli.set_read_timeout(10, 0);

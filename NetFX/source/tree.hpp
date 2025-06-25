@@ -79,4 +79,10 @@ public:
 		check->sibling = nodeptr;
 		return nodeptr;
 	}
+
+	void clear() 
+	{
+		this->nodes.clear();
+		root = nullptr;
+	}
 };
