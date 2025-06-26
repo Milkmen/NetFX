@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <map>
 #include <string>
+#include <mutex>
 
 class NFX_Container : public litehtml::document_container
 {
@@ -13,6 +14,23 @@ private:
     int default_font_size;
     std::string default_font_name;
     void* browser;
+    std::string current_base_url;
+
+    // Image loading structures
+    struct LoadedImage {
+        SDL_Texture* texture = nullptr;
+        int width = 0;
+        int height = 0;
+        bool loaded = false;
+    };
+
+    std::map<std::string, LoadedImage> loaded_images;
+    std::mutex images_mutex;
+
+    // Helper methods for image loading
+    std::string resolve_url(const std::string& src, const std::string& base_url);
+    void load_image_async(const std::string& url, const std::string& src);
+
 public:
     std::map<std::string, TTF_Font*> fonts;
 
@@ -50,6 +68,10 @@ public:
         const std::shared_ptr<litehtml::document>& doc) override;
     void get_media_features(litehtml::media_features& media) const override;
     void get_language(litehtml::string& language, litehtml::string& culture) const override;
+
+    // Additional method needed by litehtml for drawing images
+    void draw_image(litehtml::uint_ptr hdc, const char* src, const char* baseurl,
+        const litehtml::position& pos);
 
     void set_browser(void* browser_ref);
 };

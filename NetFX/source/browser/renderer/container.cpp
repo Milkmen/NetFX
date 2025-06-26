@@ -1,6 +1,10 @@
 #include "container.h"
 #include <iostream>
 #include <algorithm>
+#include <thread>
+#include <future>
+#include <httplib.hpp>
+#include <SDL_image.h>
 #include "../browser.h"
 
 NFX_Container::NFX_Container(SDL_Renderer* renderer)
@@ -18,6 +22,244 @@ NFX_Container::~NFX_Container()
     for (auto& font_pair : fonts) {
         if (font_pair.second) {
             TTF_CloseFont(font_pair.second);
+        }
+    }
+
+    // Clean up loaded images
+    for (auto& img_pair : loaded_images) {
+        if (img_pair.second.texture) {
+            SDL_DestroyTexture(img_pair.second.texture);
+        }
+    }
+}
+
+std::string NFX_Container::resolve_url(const std::string& src, const std::string& base_url)
+{
+    if (src.empty()) return "";
+
+    // If it's already a full URL, return as-is
+    if (src.find("://") != std::string::npos) {
+        return src;
+    }
+
+    // If it starts with //, it's protocol-relative
+    if (src.substr(0, 2) == "//") {
+        // Determine protocol from base_url
+        if (base_url.find("https://") == 0) {
+            return "https:" + src;
+        }
+        else {
+            return "http:" + src;
+        }
+    }
+
+    // If it starts with /, it's absolute path
+    if (src[0] == '/') {
+        // Find the protocol and domain from base_url
+        size_t proto_end = base_url.find("://");
+        if (proto_end == std::string::npos) return src;
+
+        size_t domain_end = base_url.find('/', proto_end + 3);
+        if (domain_end == std::string::npos) {
+            return base_url + src;
+        }
+        else {
+            return base_url.substr(0, domain_end) + src;
+        }
+    }
+
+    // It's a relative URL
+    std::string resolved = base_url;
+    if (!resolved.empty() && resolved.back() != '/') {
+        resolved += "/";
+    }
+    resolved += src;
+
+    return resolved;
+}
+
+void NFX_Container::load_image_async(const std::string& url, const std::string& src)
+{
+    std::thread([this, url, src]() {
+        try {
+            // Parse URL
+            std::string remaining = url;
+            std::string protocol, hostname, path;
+            int port = 80;
+
+            // Extract protocol
+            size_t proto_pos = remaining.find("://");
+            if (proto_pos != std::string::npos) {
+                protocol = remaining.substr(0, proto_pos);
+                remaining = remaining.substr(proto_pos + 3);
+
+                if (protocol == "https") {
+                    port = 443;
+                }
+            }
+            else {
+                protocol = "http";
+            }
+
+            // Extract hostname and path
+            size_t path_pos = remaining.find('/');
+            if (path_pos != std::string::npos) {
+                hostname = remaining.substr(0, path_pos);
+                path = remaining.substr(path_pos);
+            }
+            else {
+                hostname = remaining;
+                path = "/";
+            }
+
+            // Check for port in hostname
+            size_t port_pos = hostname.find(':');
+            if (port_pos != std::string::npos) {
+                std::string port_str = hostname.substr(port_pos + 1);
+                hostname = hostname.substr(0, port_pos);
+                try {
+                    port = std::stoi(port_str);
+                }
+                catch (...) {
+                    // Keep default port
+                }
+            }
+
+            // Download image
+            httplib::Result res;
+            httplib::Headers headers = {
+                {"User-Agent", "NetFX Browser/1.0"},
+                {"Accept", "image/*,*/*;q=0.8"},
+                {"Connection", "close"}
+            };
+
+            if (protocol == "https") {
+                httplib::SSLClient ssl_cli(hostname, port);
+                ssl_cli.enable_server_certificate_verification(false);
+                ssl_cli.set_connection_timeout(10, 0);
+                ssl_cli.set_read_timeout(15, 0);
+                ssl_cli.set_write_timeout(10, 0);
+                res = ssl_cli.Get(path, headers);
+            }
+            else {
+                httplib::Client http_cli(hostname, port);
+                http_cli.set_connection_timeout(10, 0);
+                http_cli.set_read_timeout(15, 0);
+                http_cli.set_write_timeout(10, 0);
+                res = http_cli.Get(path, headers);
+            }
+
+            if (res && res->status == 200) {
+                // Create SDL texture from image data
+                SDL_RWops* rw = SDL_RWFromConstMem(res->body.data(), res->body.size());
+                if (rw) {
+                    SDL_Surface* surface = IMG_Load_RW(rw, 1); // This frees the RWops
+                    if (surface) {
+                        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+                        if (texture) {
+                            // Store the loaded image
+                            {
+                                std::lock_guard<std::mutex> lock(images_mutex);
+                                LoadedImage& img = loaded_images[src];
+                                img.texture = texture;
+                                img.width = surface->w;
+                                img.height = surface->h;
+                                img.loaded = true;
+
+                                std::cout << "Image loaded: " << src << " (" << img.width << "x" << img.height << ")" << std::endl;
+                            }
+                        }
+                        SDL_FreeSurface(surface);
+                    }
+                }
+            }
+            else {
+                std::cout << "Failed to load image: " << url;
+                if (res) {
+                    std::cout << " (HTTP " << res->status << ")";
+                }
+                std::cout << std::endl;
+            }
+        }
+        catch (const std::exception& e) {
+            std::cout << "Exception loading image " << url << ": " << e.what() << std::endl;
+        }
+        }).detach();
+}
+
+void NFX_Container::load_image(const char* src, const char* baseurl, bool redraw_on_ready)
+{
+    if (!src) return;
+
+    std::string src_str = src;
+    std::string base_str = baseurl ? baseurl : current_base_url;
+
+    // Check if already loaded or loading
+    {
+        std::lock_guard<std::mutex> lock(images_mutex);
+        auto it = loaded_images.find(src_str);
+        if (it != loaded_images.end()) {
+            return; // Already loaded or loading
+        }
+
+        // Mark as loading
+        loaded_images[src_str] = LoadedImage();
+    }
+
+    std::string full_url = resolve_url(src_str, base_str);
+    std::cout << "Loading image: " << src_str << " -> " << full_url << std::endl;
+
+    load_image_async(full_url, src_str);
+}
+
+void NFX_Container::get_image_size(const char* src, const char* baseurl, litehtml::size& sz)
+{
+    if (!src) {
+        sz.width = 0;
+        sz.height = 0;
+        return;
+    }
+
+    std::string src_str = src;
+
+    std::lock_guard<std::mutex> lock(images_mutex);
+    auto it = loaded_images.find(src_str);
+    if (it != loaded_images.end() && it->second.loaded) {
+        sz.width = it->second.width;
+        sz.height = it->second.height;
+    }
+    else {
+        // Return default size while loading
+        sz.width = 100;
+        sz.height = 100;
+    }
+}
+
+void NFX_Container::draw_image(litehtml::uint_ptr hdc, const char* src, const char* baseurl,
+    const litehtml::position& pos)
+{
+    if (!src) return;
+
+    std::string src_str = src;
+
+    std::lock_guard<std::mutex> lock(images_mutex);
+    auto it = loaded_images.find(src_str);
+    if (it != loaded_images.end() && it->second.loaded && it->second.texture) {
+        SDL_Rect dst = { pos.x, pos.y, pos.width, pos.height };
+        SDL_RenderCopy(renderer, it->second.texture, nullptr, &dst);
+    }
+    else {
+        // Draw placeholder rectangle
+        SDL_SetRenderDrawColor(renderer, 000, 100, 200, 255);
+        SDL_Rect placeholder = { pos.x, pos.y, pos.width, pos.height };
+        SDL_RenderFillRect(renderer, &placeholder);
+
+        SDL_SetRenderDrawColor(renderer, 150, 150, 150, 255);
+        SDL_RenderDrawRect(renderer, &placeholder);
+
+        // Draw "IMG" text in the center if there's space
+        if (pos.width > 30 && pos.height > 15) {
+            // You could draw "IMG" text here if you want
         }
     }
 }
@@ -115,20 +357,6 @@ void NFX_Container::draw_list_marker(litehtml::uint_ptr hdc, const litehtml::lis
     }
 }
 
-void NFX_Container::load_image(const char* src, const char* baseurl, bool redraw_on_ready)
-{
-    // TODO: Implement image loading
-    // For now, just stub this out
-}
-
-void NFX_Container::get_image_size(const char* src, const char* baseurl, litehtml::size& sz)
-{
-    // TODO: Implement image size retrieval
-    // For now, return default size
-    sz.width = 100;
-    sz.height = 100;
-}
-
 void NFX_Container::draw_background(litehtml::uint_ptr hdc, const std::vector<litehtml::background_paint>& bg)
 {
     if (bg.empty()) return;
@@ -213,7 +441,9 @@ void NFX_Container::set_caption(const char* caption)
 void NFX_Container::set_base_url(const char* base_url)
 {
     // Store base URL for relative link resolution
-    // TODO: Implement base URL storage
+    if (base_url) {
+        current_base_url = base_url;
+    }
 }
 
 void NFX_Container::link(const std::shared_ptr<litehtml::document>& doc, const litehtml::element::ptr& el)

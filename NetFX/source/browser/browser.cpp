@@ -148,6 +148,8 @@ void NFX_Browser::load(NFX_Url& url)
                 // Create litehtml document with default CSS
                 std::string css = get_default_css();
 
+                this->container->set_base_url(this->base_url.c_str());
+
                 try {
                     this->document = litehtml::document::createFromString(
                         this->current_html.c_str(),
@@ -241,7 +243,6 @@ void NFX_Browser::load(NFX_Url& url)
         this->current_html = "<html><body><h1>Unknown Error</h1><p>An unknown error occurred while loading the page</p></body></html>";
     }
 
-    // If we still don't have a document, create a simple error page
     if (!this->document && !this->current_html.empty()) {
         try {
             std::string css = get_default_css();
