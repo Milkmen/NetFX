@@ -10,11 +10,12 @@ class NFX_Container : public litehtml::document_container
 {
 private:
     SDL_Renderer* renderer;
-    std::map<std::string, TTF_Font*> fonts;
     int default_font_size;
     std::string default_font_name;
 
 public:
+    std::map<std::string, TTF_Font*> fonts;
+
     NFX_Container(SDL_Renderer* renderer);
     ~NFX_Container();
 

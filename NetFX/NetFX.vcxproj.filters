@@ -21,9 +21,6 @@
     <ClInclude Include="source\browser\browser.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="source\browser\renderer\renderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="source\tree.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -281,43 +278,7 @@
     <ClCompile Include="source\browser\browser.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="source\browser\renderer\renderer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="source\browser\renderer\container.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\attribute.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\char_ref.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\error.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\parser.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\string_buffer.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\string_piece.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\tag.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\tokenizer.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\utf8.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\util.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\litehtml\src\gumbo\vector.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="lib\litehtml\include\litehtml\gumbo\attribute.c">

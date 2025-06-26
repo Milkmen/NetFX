@@ -118,7 +118,7 @@ private:
 
     // Default CSS for basic styling
     std::string get_default_css();
-
+    void renderSimpleText(TTF_Font* font, const char* text, int x, int y);
 public:
     NFX_Browser(SDL_Window* window);
     ~NFX_Browser();
