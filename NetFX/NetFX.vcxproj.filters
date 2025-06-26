@@ -270,6 +270,9 @@
     <ClInclude Include="lib\litehtml\include\litehtml\gumbo\util.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="source\bytesize.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">

@@ -12,7 +12,7 @@ private:
     SDL_Renderer* renderer;
     int default_font_size;
     std::string default_font_name;
-
+    void* browser;
 public:
     std::map<std::string, TTF_Font*> fonts;
 
@@ -50,4 +50,6 @@ public:
         const std::shared_ptr<litehtml::document>& doc) override;
     void get_media_features(litehtml::media_features& media) const override;
     void get_language(litehtml::string& language, litehtml::string& culture) const override;
+
+    void set_browser(void* browser_ref);
 };

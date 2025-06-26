@@ -1,6 +1,7 @@
 #include "container.h"
 #include <iostream>
 #include <algorithm>
+#include "../browser.h"
 
 NFX_Container::NFX_Container(SDL_Renderer* renderer)
     : renderer(renderer), default_font_size(16), default_font_name("Roboto-Regular.ttf")
@@ -223,9 +224,10 @@ void NFX_Container::link(const std::shared_ptr<litehtml::document>& doc, const l
 
 void NFX_Container::on_anchor_click(const char* url, const litehtml::element::ptr& el)
 {
-    // Handle link clicks
-    // TODO: Implement navigation
-    std::cout << "Link clicked: " << url << std::endl;
+    if (browser && url) {
+        std::cout << "Container: Link clicked: " << url << std::endl;
+        ((NFX_Browser*)browser)->on_anchor_click(std::string(url));
+    }
 }
 
 void NFX_Container::set_cursor(const char* cursor)
@@ -316,4 +318,9 @@ void NFX_Container::get_language(litehtml::string& language, litehtml::string& c
 {
     language = "en";
     culture = "US";
+}
+
+void NFX_Container::set_browser(void* browser_ref)
+{
+    this->browser = browser_ref;
 }

@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::string urlText = "https://pornhub.com/";
+    std::string urlText = "https://milkmen.github.io/";
     NFX_Url url = NFX_Url(urlText);
     NFX_Browser* browser = new NFX_Browser(window);
     browser->load(url);
@@ -52,6 +52,16 @@ int main(int argc, char* argv[])
                 quit = 1;
             }
 
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    // Only handle clicks if search bar is not active
+                    if (!searchBarActive) {
+                        browser->handle_click(e.button.x, e.button.y);
+                    }
+                }
+            }
+            else
             if (e.type == SDL_KEYDOWN) 
             {
                 SDL_Keymod mod = SDL_GetModState();

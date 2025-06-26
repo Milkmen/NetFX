@@ -244,6 +244,7 @@
     <ClInclude Include="source\browser\browser.h" />
     <ClInclude Include="source\browser\renderer\container.h" />
     <ClInclude Include="source\tree.hpp" />
+    <ClInclude Include="source\bytesize.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\litehtml\include\litehtml\codepoint.cpp" />

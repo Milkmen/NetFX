@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "../bytesize.h"
 
 NFX_Browser::NFX_Browser(SDL_Window* window) : window(window)
 {
@@ -13,6 +14,7 @@ NFX_Browser::NFX_Browser(SDL_Window* window) : window(window)
     }
 
     this->container = new NFX_Container(this->renderer);
+    this->container->set_browser(this);
 }
 
 NFX_Browser::~NFX_Browser()
@@ -137,7 +139,7 @@ void NFX_Browser::load(NFX_Url& url)
                 std::cout << "Downloaded " << this->current_html.length() << " bytes" << std::endl;
 
                 // Limit HTML size to prevent memory issues
-                const size_t MAX_HTML_SIZE = 1024 * 1024; // 1MB limit
+                const size_t MAX_HTML_SIZE = 8 * MiB;
                 if (this->current_html.length() > MAX_HTML_SIZE) {
                     std::cout << "HTML too large, truncating..." << std::endl;
                     this->current_html = this->current_html.substr(0, MAX_HTML_SIZE);
@@ -337,5 +339,85 @@ void NFX_Browser::on_anchor_click(const std::string& url)
     }
     catch (const std::exception& e) {
         std::cout << "Exception in anchor click: " << e.what() << std::endl;
+    }
+}
+
+std::shared_ptr<litehtml::element> find_element_at(std::shared_ptr<litehtml::element> root, int x, int y)
+{
+    if (!root) return nullptr;
+
+    const litehtml::position& pos = root->get_placement();
+
+    // First check children (depth-first), in reverse order for Z-index correctness
+    const auto& children = root->children();
+    for (auto it = children.rbegin(); it != children.rend(); ++it) {
+        auto hit = find_element_at(*it, x, y);
+        if (hit) return hit;
+    }
+
+    // Then check self
+    if (x >= pos.left() && x <= pos.right() &&
+        y >= pos.top() && y <= pos.bottom()) {
+        return root;
+    }
+
+    return nullptr;
+}
+
+
+void NFX_Browser::handle_click(int x, int y)
+{
+    if (!this->document) return;
+
+    try {
+        litehtml::position::vector redraw_boxes;
+        this->document->on_lbutton_down(x, y, 0, 0, redraw_boxes);
+
+        auto root = this->document->root();
+        auto clicked_element = find_element_at(root, x, y);
+
+        if (clicked_element) {
+            auto current_element = clicked_element;
+
+            while (current_element) {
+                std::string tag = current_element->get_tagName();
+                if (tag == "a") { // This check always fails even if i click on a <a>
+                    const char* href = current_element->get_attr("href");
+
+                    if (href && *href) {
+                        std::string url_str = href;
+
+                        if (url_str[0] == '/') {
+                            NFX_Url current_url(this->base_url);
+                            url_str = current_url.schema + "://" + current_url.hostname;
+                            if ((current_url.schema == "http" && current_url.port != 80) ||
+                                (current_url.schema == "https" && current_url.port != 443)) {
+                                url_str += ":" + std::to_string(current_url.port);
+                            }
+                            url_str += href;
+                        }
+                        else if (url_str.find("://") == std::string::npos) {
+                            if (!this->base_url.empty() && this->base_url.back() != '/')
+                                url_str = this->base_url + "/" + url_str;
+                            else
+                                url_str = this->base_url + url_str;
+                        }
+
+                        std::cout << "Link clicked: " << url_str << std::endl;
+                        this->on_anchor_click(url_str);
+                        break;
+                    }
+                }
+
+                current_element = current_element->parent();
+            }
+        }
+
+        for (const auto& box : redraw_boxes) {
+            // Optional: implement partial redraws
+        }
+    }
+    catch (const std::exception& e) {
+        std::cout << "Exception in handle_click: " << e.what() << std::endl;
     }
 }

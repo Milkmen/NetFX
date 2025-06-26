@@ -125,4 +125,5 @@ public:
     void load(NFX_Url& url);
     void render();
     void on_anchor_click(const std::string& url);
+    void handle_click(int x, int y);
 };
