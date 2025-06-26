@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include "renderer/renderer.h"
-#include <gumbo.h>
+#include <litehtml.h>
+#include "renderer/container.h"
+#include <SDL.h>
 
 class NFX_Url
 {
@@ -108,15 +109,20 @@ private:
 class NFX_Browser
 {
 private:
-    NFX_Renderer* renderer;
-    std::vector<GumboNode*> scripts;
-    std::vector<GumboNode*> stylesheets;
+    SDL_Window* window;
+    SDL_Renderer* renderer;
+    NFX_Container* container;
+    std::shared_ptr<litehtml::document> document;
+    std::string current_html;
+    std::string base_url;
 
-    void convertGumboToLCRS(LCRS_Tree<NFX_DrawObj_t>& tree, GumboNode* gumboNode, LCRS_Node<NFX_DrawObj_t>* parent = nullptr);
+    // Default CSS for basic styling
+    std::string get_default_css();
+
 public:
-    GumboOutput* output;
-	NFX_Browser(SDL_Window* window);
-	~NFX_Browser();
+    NFX_Browser(SDL_Window* window);
+    ~NFX_Browser();
     void load(NFX_Url& url);
     void render();
+    void on_anchor_click(const std::string& url);
 };

@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::string urlText = "https://example.com/";
+    std::string urlText = "https://pornhub.com/";
     NFX_Url url = NFX_Url(urlText);
     NFX_Browser* browser = new NFX_Browser(window);
     browser->load(url);

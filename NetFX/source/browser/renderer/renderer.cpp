@@ -1,6 +1,5 @@
 #include "renderer.h"
 #include <SDL_ttf.h>
-#include <gumbo.h>
 #include <string>
 #include <sstream>
 #include <set>

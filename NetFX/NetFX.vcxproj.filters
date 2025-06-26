@@ -24,61 +24,253 @@
     <ClInclude Include="source\browser\renderer\renderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="lib\gumbo\attribute.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\char_ref.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\error.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\gumbo.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\insertion_mode.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\parser.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\string_buffer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\string_piece.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tag_enum.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tag_gperf.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tag_sizes.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tag_strings.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\token_type.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tokenizer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\tokenizer_states.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\utf8.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\util.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\gumbo\vector.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="source\tree.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="source\browser\renderer\container.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\background.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\borders.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\codepoint.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_length.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_margins.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_offsets.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_position.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_properties.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\css_selector.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\document.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\document_container.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_anchor.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_base.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_before_after.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_body.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_break.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_cdata.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_comment.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_div.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_font.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_link.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_para.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_script.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_space.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_style.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_table.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_td.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_text.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_title.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\el_tr.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\element.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\flex_item.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\flex_line.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\formatting_context.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\html.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\html_tag.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\iterators.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\line_box.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\master_css.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\media_query.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\num_cvt.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\os_types.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_block.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_block_context.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_flex.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_image.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_inline.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_inline_context.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_item.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\render_table.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\string_id.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\style.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\stylesheet.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\table.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\tstring_view.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\types.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\url.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\url_path.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\utf8_strings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\web_color.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\vector.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\attribute.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\char_ref.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\error.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\gumbo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\insertion_mode.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\parser.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\string_buffer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\string_piece.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\strings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tag_enum.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tag_gperf.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tag_sizes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tag_strings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\token_type.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tokenizer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\tokenizer_states.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\utf8.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\litehtml\include\litehtml\gumbo\util.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,42 +284,248 @@
     <ClCompile Include="source\browser\renderer\renderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\attribute.c">
+    <ClCompile Include="source\browser\renderer\container.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\char_ref.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\attribute.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\error.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\char_ref.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\parser.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\error.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\string_buffer.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\parser.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\string_piece.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\string_buffer.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\tag.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\string_piece.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\tokenizer.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\tag.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\utf8.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\tokenizer.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\util.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\utf8.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gumbo\vector.c">
+    <ClCompile Include="lib\litehtml\src\gumbo\util.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\src\gumbo\vector.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\attribute.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\char_ref.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\error.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\parser.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\string_buffer.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\string_piece.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\tag.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\tokenizer.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\utf8.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\util.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\gumbo\vector.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\codepoint.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\css_borders.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\css_length.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\css_properties.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\css_selector.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\document.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\document_container.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_anchor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_base.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_before_after.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_body.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_break.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_cdata.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_comment.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_div.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_font.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_image.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_link.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_para.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_script.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_space.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_style.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_table.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_td.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_text.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_title.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\el_tr.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\element.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\flex_item.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\flex_line.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\formatting_context.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\html.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\html_tag.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\iterators.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\line_box.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\media_query.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\num_cvt.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_block.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_block_context.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_flex.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_image.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_inline_context.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_item.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\render_table.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\string_id.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\strtod.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\style.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\stylesheet.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\table.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\tstring_view.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\url.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\url_path.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\utf8_strings.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\litehtml\include\litehtml\web_color.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\gumbo\char_ref.rl" />
-    <None Include="lib\gumbo\tag.in" />
+    <None Include="lib\litehtml\src\gumbo\char_ref.rl" />
+    <None Include="lib\litehtml\src\gumbo\LICENSE" />
+    <None Include="lib\litehtml\src\gumbo\tag.in" />
+    <None Include="lib\litehtml\include\litehtml\gumbo\char_ref.rl" />
+    <None Include="lib\litehtml\include\litehtml\gumbo\LICENSE" />
+    <None Include="lib\litehtml\include\litehtml\gumbo\tag.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lib\litehtml\src\gumbo\CMakeLists.txt" />
+    <Text Include="lib\litehtml\include\litehtml\gumbo\CMakeLists.txt" />
   </ItemGroup>
 </Project>

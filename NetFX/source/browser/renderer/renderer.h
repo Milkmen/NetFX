@@ -5,7 +5,6 @@
 #include <map>
 #include <vector>
 #include <string>
-#include <gumbo.h>
 
 typedef struct
 {

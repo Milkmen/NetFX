@@ -312,6 +312,17 @@
     <ClCompile Include="lib\litehtml\include\litehtml\url_path.cpp" />
     <ClCompile Include="lib\litehtml\include\litehtml\utf8_strings.cpp" />
     <ClCompile Include="lib\litehtml\include\litehtml\web_color.cpp" />
+    <ClCompile Include="lib\litehtml\src\gumbo\attribute.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\char_ref.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\error.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\parser.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\string_buffer.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\string_piece.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\tag.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\tokenizer.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\utf8.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\util.c" />
+    <ClCompile Include="lib\litehtml\src\gumbo\vector.c" />
     <ClCompile Include="source\browser\browser.cpp" />
     <ClCompile Include="source\browser\renderer\container.cpp" />
     <ClCompile Include="source\main.cpp" />
